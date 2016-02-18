@@ -34,6 +34,7 @@ user_password_input = ""
 user_input = ""
 unknown_user = True
 unknown_password = True
+unknown_new_user = True
 while unknown_user:
     user_input = input("Enter username: ")
     if user_input in username:
@@ -61,3 +62,26 @@ for items in user_data:
         else:
             print("User specific info: {}".format(item))
 
+while unknown_new_user:
+    add_new_user = input("Want to add new user? y/n ")
+    if add_new_user.lower() == 'y':
+        with open("database", "a") as outfile:
+            new_user_name = input("Enter new username: ")
+            if new_user_name not in username:
+                outfile.write("\n" + (new_user_name).lower())
+                outfile.write("," + input("Enter new password: ").lower())
+                outfile.write("," + input("Enter the user's name: ").lower())
+                outfile.write("," + input("Enter the user's favorite color: ").lower())
+                outfile.write("," + input("Enter the user's favorite animal: ").lower())
+                print("Awesome, you added a new user!")
+                continue
+            else:
+                print("That's embarrassing, that user already exists.")
+    else:
+        unknown_new_user = False
+
+logout = input("Ready to log out? y/n ")
+if logout.lower() == 'y':
+    print("Logged out, bye!")
+else:
+    print("Too bad, you are logged out. ")
